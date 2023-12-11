@@ -1,0 +1,677 @@
+Practical  1-a
+ 
+Code (design):
+<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="WebForm1.aspx.cs" Inherits="university1a.WebForm1" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title></title>
+</head>
+<body>
+   <form id="form1" runat="server">
+        <div>
+            <h2>Server Controls Demo</h2>
+            
+            <!-- ListBox -->
+            <asp:ListBox ID="ListBox1" runat="server" SelectionMode="Multiple">
+                <asp:ListItem Text="Option 1" Value="1" />
+                <asp:ListItem Text="Option 2" Value="2" />
+                <asp:ListItem Text="Option 3" Value="3" />
+            </asp:ListBox>
+            
+            <br />
+
+            <!-- Button -->
+            <asp:Button ID="btnShowSelection" runat="server" Text="Show Selection" OnClick="btnShowSelection_Click" />
+            
+            <br />
+
+            <!-- TextBox -->
+            <asp:TextBox ID="txtSelectedItems" runat="server" ReadOnly="true"></asp:TextBox>
+
+            <br />
+
+            <!-- DropDownList1 -->
+            <asp:Label ID="lblSelectedName" runat="server"></asp:Label>
+            <br />
+            <asp:DropDownList ID="DropDownList1" runat="server" AutoPostBack="true" OnSelectedIndexChanged="DropDownList1_SelectedIndexChanged">
+                <asp:ListItem Text="John" Value="John" />
+                <asp:ListItem Text="Jane" Value="Jane" />
+                <asp:ListItem Text="Doe" Value="Doe" />
+            </asp:DropDownList>
+
+            <br />
+
+            <!-- DropDownList2 -->
+            <asp:Label ID="lblFontSize" runat="server" Text="Select Font Size: "></asp:Label>
+            <asp:DropDownList ID="DropDownList2" runat="server" AutoPostBack="true" OnSelectedIndexChanged="DropDownList2_SelectedIndexChanged">
+                <asp:ListItem Text="Small" Value="10" />
+                <asp:ListItem Text="Medium" Value="14" />
+                <asp:ListItem Text="Large" Value="18" />
+            </asp:DropDownList>
+
+            <br />
+
+            <!-- Image Control -->
+            <asp:Image ID="imgPhoto" runat="server" ImageUrl="~/Images/img.jpg" Height="150" Width="150" />
+
+            <br />
+
+            <!-- Check Boxes -->
+            <asp:CheckBox ID="chkUnderline" runat="server" Text="Underline" AutoPostBack="true" OnCheckedChanged="CheckBox_CheckedChanged" />
+            <asp:CheckBox ID="chkBold" runat="server" Text="Bold" AutoPostBack="true" OnCheckedChanged="CheckBox_CheckedChanged" />
+            <asp:CheckBox ID="chkItalic" runat="server" Text="Italic" AutoPostBack="true" OnCheckedChanged="CheckBox_CheckedChanged" />
+
+            <br />
+
+            <!-- Radio Buttons -->
+            <asp:RadioButton ID="rbRed" runat="server" GroupName="ColorGroup" Text="Red" AutoPostBack="true" OnCheckedChanged="RadioButton_CheckedChanged" />
+            <asp:RadioButton ID="rbGreen" runat="server" GroupName="ColorGroup" Text="Green" AutoPostBack="true" OnCheckedChanged="RadioButton_CheckedChanged" />
+            <asp:RadioButton ID="rbBlue" runat="server" GroupName="ColorGroup" Text="Blue" AutoPostBack="true" OnCheckedChanged="RadioButton_CheckedChanged" />
+
+        </div>
+    </form>
+</body>
+</html>
+Code(behind):
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+
+namespace university1a
+{
+    public partial class WebForm1 : System.Web.UI.Page
+    {
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            if (!IsPostBack)
+            {
+                // Initialize controls or perform other setup on the initial page load
+            }
+        }
+
+        protected void btnShowSelection_Click(object sender, EventArgs e)
+        {
+            // Display selected items from ListBox in TextBox
+            txtSelectedItems.Text = "";
+            foreach (ListItem item in ListBox1.Items)
+            {
+                if (item.Selected)
+                {
+                    txtSelectedItems.Text += item.Text + ", ";
+                }
+            }
+
+            // Remove the trailing comma and space
+            txtSelectedItems.Text = txtSelectedItems.Text.TrimEnd(',', ' ');
+        }
+
+        protected void DropDownList1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // Display the selected item from DropDownList1 in a label
+            lblSelectedName.Text = "Selected Name: " + DropDownList1.SelectedValue;
+        }
+
+        protected void DropDownList2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // Change the font size of the label according to the selected font size
+            lblSelectedName.Style["font-size"] = DropDownList2.SelectedValue + "pt";
+        }
+
+        protected void CheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            // Apply special formatting based on CheckBox selections
+            lblSelectedName.Style["text-decoration"] = chkUnderline.Checked ? "underline" : "none";
+            lblSelectedName.Style["font-weight"] = chkBold.Checked ? "bold" : "normal";
+            lblSelectedName.Style["font-style"] = chkItalic.Checked ? "italic" : "normal";
+        }
+
+        protected void RadioButton_CheckedChanged(object sender, EventArgs e)
+        {
+            // Apply color based on RadioButton selection
+            if (rbRed.Checked)
+            {
+                lblSelectedName.Style["color"] = "red";
+            }
+            else if (rbGreen.Checked)
+            {
+                lblSelectedName.Style["color"] = "green";
+            }
+            else if (rbBlue.Checked)
+            {
+                lblSelectedName.Style["color"] = "blue";
+            }
+        }
+    }
+}
+Practical 1b:
+ 
+Code(design):
+<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="WebForm1.aspx.cs" Inherits="university1b.WebForm1" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title></title>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <div>
+            <h2>Page Submission Counter</h2>
+
+            <!-- Button -->
+            <asp:Button ID="btnSubmit" runat="server" Text="Submit Page" OnClick="btnSubmit_Click" />
+
+            <br />
+
+            <!-- Display the count -->
+            <asp:Label ID="lblSubmissionCount" runat="server" Text="Submission Count: 0"></asp:Label>
+        </div>
+    </form>
+</body>
+</html>
+
+Code(behind):
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+
+namespace university1b
+{
+    public partial class WebForm1 : System.Web.UI.Page
+    {
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            
+        }
+
+        protected void btnSubmit_Click(object sender, EventArgs e)
+        {
+            if (Session["Page1Visits"] == null)
+            {
+                // If it doesn't exist, initialize it to 1
+                Session["Page1Visits"] = 0;
+            }
+            else
+            {
+                // If it exists, increment it by 1
+                Session["Page1Visits"] = (int)Session["Page1Visits"] + 1;
+            }
+
+            // Display the number of visits on the page
+            int page1Visits = (int)Session["Page1Visits"];
+            lblSubmissionCount.Text = "Number of Visits to Page : " + page1Visits.ToString();
+        }
+    }
+}
+
+--------------------------------------------------------END----------------------
+
+
+
+
+
+
+
+
+
+
+
+
+Practical 7b
+ 
+Code(web):
+<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="WebForm1.aspx.cs" Inherits="university_7b.WebForm1" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title></title>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <div>
+        </div>
+        <p>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <asp:Label ID="Label1" runat="server" Text="Registration Form"></asp:Label>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        </p>
+        <p>
+&nbsp;Name:&nbsp;&nbsp;
+            <asp:TextBox ID="TextBox1" runat="server"></asp:TextBox>
+&nbsp;
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="TextBox1" ErrorMessage="Please Fill Name"></asp:RequiredFieldValidator>
+&nbsp;
+            <asp:RegularExpressionValidator ID="RegularExpressionValidator3" runat="server" ControlToValidate="TextBox1" ErrorMessage="Name should only contain alphabets" ValidationExpression="^(?![\s]+$)(?![\s]{2,})[a-zA-Z\s]{2,25}$"></asp:RegularExpressionValidator>
+&nbsp;
+        </p>
+        <p>
+            Age:&nbsp; <asp:TextBox ID="TextBox2" runat="server"></asp:TextBox>
+&nbsp;
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="TextBox2" ErrorMessage="Please Fill Age"></asp:RequiredFieldValidator>
+&nbsp;<asp:RangeValidator ID="RangeValidator2" runat="server" ControlToValidate="TextBox2" ErrorMessage="Enter Valid Age " MaximumValue="32" MinimumValue="18"></asp:RangeValidator>
+        </p>
+        <p>
+            Mobile no:&nbsp;
+            <asp:TextBox ID="TextBox3" runat="server"></asp:TextBox>
+&nbsp;
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ControlToValidate="TextBox3" ErrorMessage="Please Fill Mobile Number "></asp:RequiredFieldValidator>
+&nbsp;<asp:RegularExpressionValidator ID="RegularExpressionValidator2" runat="server" ControlToValidate="TextBox3" ErrorMessage="Enter Valid Number" ValidationExpression="(0|91)?[6-9][0-9]{9}"></asp:RegularExpressionValidator>
+        </p>
+        <p>
+            Email :&nbsp; <asp:TextBox ID="TextBox4" runat="server"></asp:TextBox>
+&nbsp;
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ControlToValidate="TextBox4" ErrorMessage="Please Fill Email"></asp:RequiredFieldValidator>
+&nbsp;&nbsp;
+            <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" ControlToValidate="TextBox4" ErrorMessage="Enter Email not valid" ValidationExpression="rohit@gmail.com"></asp:RegularExpressionValidator>
+        </p>
+        <p>
+            Adress:&nbsp;
+            <asp:TextBox ID="TextBox5" runat="server"></asp:TextBox>
+&nbsp;&nbsp;
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ControlToValidate="TextBox5" ErrorMessage="Please Fill Address"></asp:RequiredFieldValidator>
+        </p>
+        <p>
+            <asp:Button ID="Button1" runat="server" OnClick="Button1_Click" Text="Submit" />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <asp:Button ID="Button2" runat="server" OnClick="Button2_Click" Text="Cancel" />
+        </p>
+    </form>
+</body>
+</html>
+
+Code(behind):
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+
+namespace university_7b
+{
+    public partial class WebForm1 : System.Web.UI.Page
+    {
+        protected void Page_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void Button1_Click(object sender, EventArgs e)
+        {
+            String name = TextBox1.Text;
+            int age = Convert.ToInt32(TextBox2.Text);
+            string mobileNumber = TextBox3.Text;
+            string email = TextBox4.Text;
+            string address = TextBox5.Text;
+
+            Response.Redirect($"WebForm2.aspx?Name={Server.UrlEncode(name)}&Age={age}&MobileNumber={mobileNumber}&Email={email}&Address={address}");
+        }
+
+        protected void Button2_Click(object sender, EventArgs e)
+        {
+            TextBox1.Text = string.Empty;
+            TextBox2.Text = string.Empty;
+            TextBox3.Text = string.Empty;
+            TextBox4.Text = string.Empty;
+            TextBox5.Text = string.Empty;
+        }
+    }
+}
+Code(web 2):
+<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="WebForm2.aspx.cs" Inherits="university_7b.WebForm2" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title></title>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <div>
+            <h2>Result Page</h2>
+            <p>Name: <%= Request.QueryString["Name"] %></p>
+            <p>Age: <%= Request.QueryString["Age"] %></p>
+            <p>Mobile Number: <%= Request.QueryString["MobileNumber"] %></p>
+            <p>Email: <%= Request.QueryString["Email"] %></p>
+            <p>Address: <%= Request.QueryString["Address"] %></p>
+        </div>
+    </form>
+</body>
+</html>
+
+Practical 6_b:
+ 
+protected void Page_Load(object sender, EventArgs e)
+        {
+            if (!IsPostBack)
+            {
+                // Load data on the first page load
+                LoadData();
+            }
+        }
+
+        
+        private void LoadData()
+        {
+            string connectionString = "Data Source=localhost\\SQLEXPRESS;Initial Catalog=university;Integrated Security=True";
+            string query = "SELECT * FROM Students";
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                SqlDataAdapter adapter = new SqlDataAdapter(query, connection);
+                DataSet dataSet = new DataSet();
+
+                adapter.Fill(dataSet, "Students");
+
+                // Bind the data to the GridView
+                GridView1.DataSource = dataSet.Tables["Students"];
+                GridView1.DataBind();
+            }
+        }
+
+
+ 
+ 
+Practical_8a
+Code:
+using System;
+
+namespace unviersity_8a
+{
+    interface IDrawable
+    {
+        void Draw();
+    }
+
+    // Define the second interface
+    interface IResizable
+    {
+        void Resize(int width, int height);
+    }
+
+    class Shape : IDrawable, IResizable
+    {
+        public void Draw()
+        {
+            Console.WriteLine("Drawing the shape");
+        }
+
+        public void Resize(int width, int height)
+        {
+            Console.WriteLine($"Resizing the shape to width {width} and height {height}");
+        }
+    } 
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            Shape myShape = new Shape();
+
+            // Use methods from both interfaces
+            myShape.Draw();
+            myShape.Resize(100, 150);
+        }
+    }
+}
+
+Factorial_DLL:
+Code: (normal console):-
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Fact_dll;
+
+namespace university5_b
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.WriteLine("Enter number: ");
+            int n = Convert.ToInt32(Console.ReadLine());
+            Class1 obj = new Class1();
+            int res = obj.Fact(n);
+            Console.WriteLine("Fact = " + res);
+            Console.ReadKey();
+        }
+    }
+}
+
+(add file from reference)
+Code: (class library file _dll):
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Fact_dll;
+
+namespace university5_b
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.WriteLine("Enter number: ");
+            int n = Convert.ToInt32(Console.ReadLine());
+            Class1 obj = new Class1();
+            int res = obj.Fact(n);
+            Console.WriteLine("Fact = " + res);
+            Console.ReadKey();
+        }
+    }
+}
+Practical 5_a
+
+
+ 
+<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="WebForm1.aspx.cs" Inherits="univeristy5_a.WebForm1" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title></title>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <div>
+            <asp:TextBox ID="TextBoxQuery" runat="server" Width="300"></asp:TextBox><br /><br />
+            <asp:Button ID="ButtonQuery" runat="server" Text="Query Data" OnClick="ButtonQuery_Click" /><br /><br />
+            <br />
+            <asp:TextBox ID="TextBoxResult" runat="server" TextMode="MultiLine" Rows="5" Width="300"></asp:TextBox>
+
+        <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:universityConnectionString %>" ProviderName="<%$ ConnectionStrings:universityConnectionString.ProviderName %>" SelectCommand="SELECT * FROM [Students]"></asp:SqlDataSource>
+    </form>
+</body>
+</html>
+
+Code:
+using System;
+using System.Data.SqlClient;
+namespace univeristy5_a
+{
+    public partial class WebForm1 : System.Web.UI.Page
+    {
+        protected void Page_Load(object sender, EventArgs e)
+        {
+        }
+        protected void ButtonQuery_Click(object sender, EventArgs e)
+        {
+            BindData();
+        }
+        private void BindData()
+        {
+            string connectionString = "Data Source=localhost\\SQLEXPRESS;Initial Catalog=university;Integrated Security=True";
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                string query = $"SELECT ID, Name FROM Students WHERE ID = {TextBoxQuery.Text}";
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    connection.Open();
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            TextBoxResult.Text += $"{reader["ID"]} {reader["Name"]}" + Environment.NewLine;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+Copyright:
+(.aspx)code:
+ 
+<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="WebForm1.aspx.cs" Inherits="university3_a.WebForm1" %>
+<%@ Register Src="~/WebUserControl1.ascx" TagName="Footer" TagPrefix="uc" %>
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title></title>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <div>
+            <h1 align="center" >Valia College</h1><br /><br />
+            <uc:Footer ID="Footer1" runat="server" />
+        </div>
+    </form>
+</body>
+</html>
+
+(.ascx)(code):
+ 
+Code:
+<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="WebUserControl1.ascx.cs" Inherits="university3_a.WebUserControl1" %>
+
+<div style="background-color: #f0f0f0; padding: 10px; text-align: center;">
+    <p>&copy; 2023 Rohit. All rights reserved.</p>
+</div>
+AdRotator control:
+ 
+<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="WebForm1.aspx.cs" Inherits="univeristy3_b.WebForm1" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title></title>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <div>
+            <h2>Advertisement Rotator</h2>
+           <asp:AdRotator ID="AdRotator1" runat="server" DataSourceID="XmlDataSource1" />
+<asp:XmlDataSource ID="XmlDataSource1" runat="server" DataFile="~/adver.xml"></asp:XmlDataSource>
+
+            <br />
+            <label>Filter by Keyword: </label>
+            <asp:TextBox ID="txtKeyword" runat="server"></asp:TextBox>
+        </div>
+        <p>
+            <asp:Button ID="btnFilter" runat="server" Text="Filter" OnClick="btnFilter_Click" />
+        </p>
+    </form>
+</body>
+</html>
+
+Xml(file):
+<?xml version="1.0" encoding="utf-8" ?>
+<Advertisements>
+	<Ad>
+		<ImageUrl>~/images/face.png</ImageUrl>
+		<NavigateUrl>http://www.example.com/ad1</NavigateUrl>
+		<AlternateText>Advertisement 1</AlternateText>
+		<Keyword>FaceBook</Keyword>
+	</Ad>
+	<Ad>
+		<ImageUrl>~/images/google.png</ImageUrl>
+		<NavigateUrl>http://www.example.com/ad2</NavigateUrl>
+		<AlternateText>Advertisement 2</AlternateText>
+		<Keyword>Google</Keyword>
+	</Ad>
+	<Ad>
+		<ImageUrl>~/images/youtube.png</ImageUrl>
+		<NavigateUrl>http://www.example.com/ad2</NavigateUrl>
+		<AlternateText>Advertisement 3</AlternateText>
+		<Keyword>Youtube</Keyword>
+	</Ad>
+	<Ad>
+		<ImageUrl>~/images/infos.png</ImageUrl>
+		<NavigateUrl>http://www.example.com/ad2</NavigateUrl>
+		<AlternateText>Advertisement 4</AlternateText>
+		<Keyword>Infosys</Keyword>
+	</Ad>
+	<Ad>
+		<ImageUrl>~/images/tcs.png</ImageUrl>
+		<NavigateUrl>http://www.example.com/ad2</NavigateUrl>
+		<AlternateText>Advertisement 5</AlternateText>
+		<Keyword>Tata Consult Services</Keyword>
+	</Ad>
+</Advertisements>
+ 
+Codebehind file:
+protected void Page_Load(object sender, EventArgs e)
+        {
+            if (!IsPostBack)
+            {
+                AdRotator1.KeywordFilter = ""; // Initially, show all ads
+            }
+        }
+
+        protected void btnFilter_Click(object sender, EventArgs e)
+        {
+            AdRotator1.KeywordFilter = txtKeyword.Text.Trim();
+        }
+Calendar control:
+ 
+Code(behind):
+using System;
+using System.Web.UI.WebControls;
+namespace unipractice
+{
+    public partial class WebForm1 : System.Web.UI.Page
+    {
+        protected void Page_Load(object sender, EventArgs e)
+        {  
+        }
+        protected void dayrender(object sender, DayRenderEventArgs e)
+        {
+            if(e.Day.Date.Year == 2023 && e.Day.Date.Month==12 && e.Day.Date.Day == 25)
+            {
+                Label l1 = new Label();
+                l1.Text = "<br>Chrismast";
+                e.Cell.Controls.Add(l1);
+            }
+        }
+        protected void selectionchanged(object sender, EventArgs e)
+        {
+            Calendar1.SelectedDayStyle.BackColor = System.Drawing.Color.Red;
+            Calendar1.SelectedDayStyle.ForeColor = System.Drawing.Color.Green;
+        }
+        protected void Button1_Click(object sender, EventArgs e)
+        {
+            TimeSpan ts = Calendar1.SelectedDate - Calendar2.SelectedDate;
+            Label1.Text = ts.TotalDays.ToString();
+        }
+    }
+}

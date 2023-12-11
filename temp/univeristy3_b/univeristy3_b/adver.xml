@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Advertisements>
+	<Ad>
+		<ImageUrl>~/images/face.png</ImageUrl>
+		<NavigateUrl>http://www.example.com/ad1</NavigateUrl>
+		<AlternateText>Advertisement 1</AlternateText>
+		<Keyword>FaceBook</Keyword>
+	</Ad>
+	<Ad>
+		<ImageUrl>~/images/google.png</ImageUrl>
+		<NavigateUrl>http://www.example.com/ad2</NavigateUrl>
+		<AlternateText>Advertisement 2</AlternateText>
+		<Keyword>Google</Keyword>
+	</Ad>
+	<Ad>
+		<ImageUrl>~/images/youtube.png</ImageUrl>
+		<NavigateUrl>http://www.example.com/ad2</NavigateUrl>
+		<AlternateText>Advertisement 3</AlternateText>
+		<Keyword>Youtube</Keyword>
+	</Ad>
+	<Ad>
+		<ImageUrl>~/images/infos.png</ImageUrl>
+		<NavigateUrl>http://www.example.com/ad2</NavigateUrl>
+		<AlternateText>Advertisement 4</AlternateText>
+		<Keyword>Infosys</Keyword>
+	</Ad>
+	<Ad>
+		<ImageUrl>~/images/tcs.png</ImageUrl>
+		<NavigateUrl>http://www.example.com/ad2</NavigateUrl>
+		<AlternateText>Advertisement 5</AlternateText>
+		<Keyword>Tata Consult Services</Keyword>
+	</Ad>
+</Advertisements>

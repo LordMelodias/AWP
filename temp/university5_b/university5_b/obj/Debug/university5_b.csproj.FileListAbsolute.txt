@@ -1,0 +1,11 @@
+C:\Users\Rohit\source\repos\university5_b\university5_b\bin\Debug\university5_b.exe.config
+C:\Users\Rohit\source\repos\university5_b\university5_b\bin\Debug\university5_b.exe
+C:\Users\Rohit\source\repos\university5_b\university5_b\bin\Debug\university5_b.pdb
+C:\Users\Rohit\source\repos\university5_b\university5_b\bin\Debug\Fact_dll.dll
+C:\Users\Rohit\source\repos\university5_b\university5_b\bin\Debug\Fact_dll.pdb
+C:\Users\Rohit\source\repos\university5_b\university5_b\obj\Debug\university5_b.csproj.AssemblyReference.cache
+C:\Users\Rohit\source\repos\university5_b\university5_b\obj\Debug\university5_b.csproj.SuggestedBindingRedirects.cache
+C:\Users\Rohit\source\repos\university5_b\university5_b\obj\Debug\university5_b.csproj.CoreCompileInputs.cache
+C:\Users\Rohit\source\repos\university5_b\university5_b\obj\Debug\university5_b.csproj.CopyComplete
+C:\Users\Rohit\source\repos\university5_b\university5_b\obj\Debug\university5_b.exe
+C:\Users\Rohit\source\repos\university5_b\university5_b\obj\Debug\university5_b.pdb

@@ -1,0 +1,8 @@
+C:\Users\Rohit\source\repos\unviersity_8a\unviersity_8a\bin\Debug\unviersity_8a.exe.config
+C:\Users\Rohit\source\repos\unviersity_8a\unviersity_8a\bin\Debug\unviersity_8a.exe
+C:\Users\Rohit\source\repos\unviersity_8a\unviersity_8a\bin\Debug\unviersity_8a.pdb
+C:\Users\Rohit\source\repos\unviersity_8a\unviersity_8a\obj\Debug\unviersity_8a.csproj.AssemblyReference.cache
+C:\Users\Rohit\source\repos\unviersity_8a\unviersity_8a\obj\Debug\unviersity_8a.csproj.SuggestedBindingRedirects.cache
+C:\Users\Rohit\source\repos\unviersity_8a\unviersity_8a\obj\Debug\unviersity_8a.csproj.CoreCompileInputs.cache
+C:\Users\Rohit\source\repos\unviersity_8a\unviersity_8a\obj\Debug\unviersity_8a.exe
+C:\Users\Rohit\source\repos\unviersity_8a\unviersity_8a\obj\Debug\unviersity_8a.pdb
